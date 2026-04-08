@@ -2,7 +2,7 @@
 
 Visual agent toolkit — grid overlays and spatial tools for LLM agents.
 
-LLMs struggle with precise spatial reasoning in images. Reticle bridges this gap by giving agents a coordinate grid overlay and point-plotting tools with edge-detection feedback, enabling iterative spatial understanding through tool use.
+LLMs struggle with precise spatial reasoning in images. Reticle bridges this gap by giving agents a coordinate grid overlay and point-plotting tools, enabling iterative spatial understanding through tool use.
 
 ## Demo
 
@@ -20,13 +20,13 @@ python main.py room.jpg "point to the corners of the table"
 python main.py floorplan.png "point to all the doors" --model gemini-3.1-pro-preview
 ```
 
-The agent will plot labeled markers on the image, get edge-detection feedback, refine if needed, and save an annotated image to `<name>_pointed.<ext>`.
+The agent will plot labeled markers on the image and save an annotated image to `<name>_pointed.<ext>`.
 
 ## How it works
 
-1. **Grid overlay** — renders a 1000x1000 normalized coordinate grid on any image (red=x, blue=y)
-2. **Point plotting** — agents plot points and receive feedback: ON_EDGE, CLOSE_TO_EDGE, EMPTY_SPACE, with nearest-edge distances
-3. **Agent loop** — multi-turn loop where the agent sees images, calls tools, gets visual feedback, and refines its understanding
+1. **Grid overlay** — renders a normalized coordinate grid on any image (red=x, blue=y) so agents can reference precise locations
+2. **Point plotting** — agents plot labeled markers on objects using grid coordinates
+3. **Agent loop** — multi-turn tool-use loop where the agent sees images, calls tools, and iterates
 
 ## Usage
 
