@@ -27,7 +27,7 @@ class GeminiService(BaseLLMService):
 
     def __init__(
         self,
-        model_id: str = "gemini-3-pro-preview",
+        model_id: str = "gemini-3.1-pro-preview",
         thinking_level: ThinkingLevel = "med",
     ):
         clean_model_id = model_id.removeprefix("gemini/")

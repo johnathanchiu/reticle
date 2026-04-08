@@ -37,7 +37,7 @@ def get_llm_service(
     model_id: str | None = None,
     thinking_level: ThinkingLevel = "med",
 ) -> BaseLLMService:
-    model_id = model_id or os.environ.get("RETICLE_DEFAULT_MODEL", "gpt-4.1-mini")
+    model_id = model_id or os.environ.get("RETICLE_DEFAULT_MODEL", "gpt-5.4")
     provider = get_provider_for_model(model_id)
 
     if provider == "anthropic":

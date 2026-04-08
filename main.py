@@ -4,7 +4,7 @@ Usage:
     uv run python main.py <image_path> [model]
 
 Examples:
-    uv run python main.py photo.png                    # uses gpt-4.1-mini
+    uv run python main.py photo.png                    # uses gpt-5.4
     uv run python main.py photo.png gemini-2.5-flash   # uses Gemini
     uv run python main.py photo.png claude-sonnet-4-20250514
 
@@ -42,7 +42,7 @@ Analyze the image systematically:
 """
 
 
-async def main(image_path: str, model: str = "gpt-4.1-mini") -> None:
+async def main(image_path: str, model: str = "gpt-5.4") -> None:
     # Set up LLM + visual tools
     llm = get_llm_service(model, thinking_level="low")
     grid_b64 = render_grid_overlay(image_path)
@@ -93,9 +93,9 @@ async def main(image_path: str, model: str = "gpt-4.1-mini") -> None:
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: uv run python main.py <image_path> [model]")
-        print("\nModels: gpt-4.1-mini (default), gemini-2.5-flash, claude-sonnet-4-20250514, etc.")
+        print("\nModels: gpt-5.4 (default), gemini-3.1-pro-preview, claude-opus-4-20250514, etc.")
         sys.exit(1)
 
     image = sys.argv[1]
-    model_name = sys.argv[2] if len(sys.argv) > 2 else "gpt-4.1-mini"
+    model_name = sys.argv[2] if len(sys.argv) > 2 else "gpt-5.4"
     asyncio.run(main(image, model_name))

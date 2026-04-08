@@ -21,7 +21,7 @@ export OPENAI_API_KEY=sk-...
 
 # Run on an image
 python main.py photo.png
-python main.py floorplan.png gemini-2.5-flash
+python main.py floorplan.png gemini-3.1-pro-preview
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ from reticle.tools.image import load_image_base64, infer_media_type
 from reticle.agent.events import TextDeltaEvent, ToolCallEvent, CompleteEvent
 
 async def analyze(image_path: str):
-    llm = get_llm_service("gpt-4.1-mini", thinking_level="low")
+    llm = get_llm_service("gpt-5.4", thinking_level="low")
     grid_b64 = render_grid_overlay(image_path)
 
     plot_tool = PlotPointTool()

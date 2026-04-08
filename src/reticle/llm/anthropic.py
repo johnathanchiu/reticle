@@ -27,7 +27,7 @@ class AnthropicService(BaseLLMService):
 
     def __init__(
         self,
-        model_id: str = "claude-sonnet-4-20250514",
+        model_id: str = "claude-opus-4-20250514",
         thinking_level: ThinkingLevel = "med",
     ):
         super().__init__(model_id, thinking_level)

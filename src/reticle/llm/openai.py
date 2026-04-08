@@ -201,7 +201,7 @@ def sanitize_tool_messages(messages: list[Message]) -> list[Message]:
 class OpenAIService(BaseLLMService):
     """Service for interacting with OpenAI API using the Responses API."""
 
-    def __init__(self, model_id: str = "gpt-5.2", thinking_level: ThinkingLevel = "med"):
+    def __init__(self, model_id: str = "gpt-5.4", thinking_level: ThinkingLevel = "med"):
         super().__init__(model_id, thinking_level)
         self.client = openai.AsyncOpenAI(api_key=os.environ.get("OPENAI_API_KEY", ""))
 
