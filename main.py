@@ -49,14 +49,21 @@ A grid overlay is shown with red lines for x-axis and blue for y-axis.
 1. Study the image and the grid coordinates carefully.
 2. Call plot_points with labeled markers on the requested object(s).
 3. Check the feedback — if points are off-target, adjust and re-plot.
-4. Once your points land correctly, briefly describe what you marked and where.
+4. Once your points land correctly, briefly summarize what you marked and where.
 
 Be precise. Use the grid lines to estimate coordinates. Label each point clearly \
 (e.g. "front-left wheel", "top-right corner", "door handle").
+
+IMPORTANT: After you have plotted your points and described the results, STOP. \
+Do not call any more tools. Your task is done.
 """
 
 
 async def run(image_path: str, prompt: str, model: str = "gpt-5.4") -> None:
+    # Suppress noisy OpenAI image injection warnings
+    import logging
+    logging.getLogger("reticle.llm.openai").setLevel(logging.ERROR)
+
     llm = get_llm_service(model, thinking_level="low")
     grid_b64 = render_grid_overlay(image_path)
 
@@ -68,7 +75,7 @@ async def run(image_path: str, prompt: str, model: str = "gpt-5.4") -> None:
         llm=llm,
         tools=[plot_tool],
         system_prompt=SYSTEM_PROMPT,
-        max_turns=5,
+        max_turns=3,
         trace=True,
     )
 
