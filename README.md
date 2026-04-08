@@ -14,7 +14,7 @@ pip install reticle[openai]    # or [gemini], [all]
 export OPENAI_API_KEY=sk-...
 
 # Point to objects in an image
-python main.py photo.png "point to the red car"
+python main.py examples/grocery.jpg "point to the red onions"
 python main.py kitchen.jpg "point to every appliance"
 python main.py room.jpg "point to the corners of the table"
 python main.py floorplan.png "point to all the doors" --model gemini-3.1-pro-preview

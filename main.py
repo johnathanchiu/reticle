@@ -5,7 +5,7 @@ Usage:
     uv run python main.py <image_path> "<any prompt>" --model gemini-3.1-pro-preview
 
 Examples:
-    uv run python main.py photo.png "point to the red car"
+    uv run python main.py examples/grocery.jpg "point to the red onions"
     uv run python main.py kitchen.jpg "point to every appliance"
     uv run python main.py floorplan.png "point to all the doors"
     uv run python main.py room.jpg "point to the corners of the table"
@@ -153,7 +153,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""\
 examples:
-  uv run python main.py photo.png "point to the red car"
+  uv run python main.py examples/grocery.jpg "point to the red onions"
   uv run python main.py kitchen.jpg "point to every appliance"
   uv run python main.py room.jpg "where are the windows?" --model gemini-3.1-pro-preview
 """,
@@ -162,8 +162,8 @@ examples:
     parser.add_argument(
         "prompt",
         nargs="?",
-        default="point to the most interesting objects in this image",
-        help="What to point to (default: interesting objects)",
+        default="point to the red onions",
+        help="What to point to (default: point to the red onions)",
     )
     parser.add_argument("--model", default="gpt-5.4", help="LLM model to use (default: gpt-5.4)")
 
