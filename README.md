@@ -4,25 +4,29 @@ Visual agent toolkit — grid overlays and spatial tools for LLM agents.
 
 LLMs struggle with precise spatial reasoning in images. Reticle bridges this gap by giving agents a coordinate grid overlay and point-plotting tools with edge-detection feedback, enabling iterative spatial understanding through tool use.
 
-## How it works
-
-1. **Grid overlay** — renders a 1000x1000 normalized coordinate grid on any image (red=x, blue=y)
-2. **Point plotting** — agents plot points and receive feedback: ON_EDGE, CLOSE_TO_EDGE, EMPTY_SPACE, with nearest-edge distances
-3. **Agent loop** — multi-turn loop where the agent sees images, calls tools, gets visual feedback, and refines its understanding
-
-## Quick start
+## Demo
 
 ```bash
-# Install with your preferred LLM provider
+# Install
 pip install reticle[openai]    # or [gemini], [all]
 
 # Set your API key
 export OPENAI_API_KEY=sk-...
 
-# Run on an image
-python main.py photo.png
-python main.py floorplan.png gemini-3.1-pro-preview
+# Point to objects in an image
+python main.py photo.png "point to the red car"
+python main.py kitchen.jpg "point to every appliance"
+python main.py room.jpg "point to the corners of the table"
+python main.py floorplan.png "point to all the doors" --model gemini-3.1-pro-preview
 ```
+
+The agent will plot labeled markers on the image, get edge-detection feedback, refine if needed, and save an annotated image to `<name>_pointed.<ext>`.
+
+## How it works
+
+1. **Grid overlay** — renders a 1000x1000 normalized coordinate grid on any image (red=x, blue=y)
+2. **Point plotting** — agents plot points and receive feedback: ON_EDGE, CLOSE_TO_EDGE, EMPTY_SPACE, with nearest-edge distances
+3. **Agent loop** — multi-turn loop where the agent sees images, calls tools, gets visual feedback, and refines its understanding
 
 ## Usage
 
@@ -33,7 +37,7 @@ from reticle.llm.routing import get_llm_service
 from reticle.tools.grid import render_grid_overlay
 from reticle.tools.plot_points import PlotPointTool
 from reticle.tools.image import load_image_base64, infer_media_type
-from reticle.agent.events import TextDeltaEvent, ToolCallEvent, CompleteEvent
+from reticle.agent.events import TextDeltaEvent, CompleteEvent
 
 async def analyze(image_path: str):
     llm = get_llm_service("gpt-5.4", thinking_level="low")
@@ -46,7 +50,7 @@ async def analyze(image_path: str):
     loop = AgentLoop(
         llm=llm,
         tools=[plot_tool],
-        system_prompt="You are a visual analysis agent. Use plot_points to verify coordinates.",
+        system_prompt="You are a visual pointing agent. Use plot_points to mark objects.",
         max_turns=5,
     )
 
@@ -57,7 +61,7 @@ async def analyze(image_path: str):
         "role": "user",
         "content": [
             {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": img_b64}},
-            {"type": "text", "text": "Analyze this image."},
+            {"type": "text", "text": "Point to the windows."},
         ],
     })
 
