@@ -15,9 +15,8 @@ dependencies = [
 
 [project.optional-dependencies]
 openai = ["openai>=1.60"]
-anthropic = ["anthropic>=0.40"]
 gemini = ["google-genai>=1.0"]
-all = ["openai>=1.60", "anthropic>=0.40", "google-genai>=1.0"]
+all = ["openai>=1.60", "google-genai>=1.0"]
 dev = ["ruff>=0.8", "pyright>=1.1"]
 
 [tool.hatch.build.targets.wheel]

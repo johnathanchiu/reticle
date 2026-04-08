@@ -7,13 +7,11 @@ import os
 from reticle.llm.base import BaseLLMService, ThinkingLevel
 
 MODEL_PREFIXES: dict[str, str] = {
-    "claude": "anthropic",
     "gpt": "openai",
     "o1": "openai",
     "o3": "openai",
     "o4": "openai",
     "gemini": "gemini",
-    "qwen": "qwen",
 }
 
 
@@ -40,11 +38,7 @@ def get_llm_service(
     model_id = model_id or os.environ.get("RETICLE_DEFAULT_MODEL", "gpt-5.4")
     provider = get_provider_for_model(model_id)
 
-    if provider == "anthropic":
-        from reticle.llm.anthropic import AnthropicService
-
-        return AnthropicService(model_id, thinking_level)
-    elif provider == "openai":
+    if provider == "openai":
         from reticle.llm.openai import OpenAIService
 
         return OpenAIService(model_id, thinking_level)
@@ -52,9 +46,5 @@ def get_llm_service(
         from reticle.llm.gemini import GeminiService
 
         return GeminiService(model_id, thinking_level)
-    elif provider == "qwen":
-        from reticle.llm.qwen import QwenService
-
-        return QwenService(model_id, thinking_level)
 
     raise ValueError(f"Unsupported provider: {provider}")

@@ -14,7 +14,7 @@ LLMs struggle with precise spatial reasoning in images. Reticle bridges this gap
 
 ```bash
 # Install with your preferred LLM provider
-pip install reticle[openai]    # or [anthropic], [gemini], [all]
+pip install reticle[openai]    # or [gemini], [all]
 
 # Set your API key
 export OPENAI_API_KEY=sk-...
@@ -110,11 +110,9 @@ class MyToolInvocation(BaseToolInvocation):
 ## Supported LLM providers
 
 - **OpenAI** — GPT-4.1, GPT-5, o3, o4 (Responses API with reasoning)
-- **Anthropic** — Claude Sonnet/Opus 4 (extended thinking)
 - **Google** — Gemini 2.5/3.x (thinking budgets)
-- **Qwen** — via DashScope (Chat Completions)
 
-Set API keys via environment variables: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `DASHSCOPE_API_KEY`.
+Set API keys via environment variables: `OPENAI_API_KEY`, `GEMINI_API_KEY`.
 
 ## Architecture
 
@@ -127,7 +125,7 @@ reticle/
 ├── llm/           # Multi-provider LLM abstraction
 │   ├── base.py    # BaseLLMService interface
 │   ├── routing.py # Prefix-based provider routing
-│   └── ...        # OpenAI, Anthropic, Gemini, Qwen
+│   └── ...        # OpenAI, Gemini
 └── tools/         # Visual tools
     ├── grid.py    # Coordinate grid overlay
     ├── plot_points.py  # Point plotting + edge detection
